@@ -17,7 +17,8 @@ class Ring:
         self.mod_poly = np.array([-1] + [0] * self.dimension)
         # if len(x) < 2 ** d:
         #     print("Warning: dimension too small", x)
-        self.poly = np.array(x)
+        self.poly = np.array(x, dtype=np.int64)
+        # self.poly = np.array(x)
         self._balance()
         
     def _balance(self):

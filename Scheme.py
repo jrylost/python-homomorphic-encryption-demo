@@ -18,6 +18,8 @@ class Scheme:
         self.d = d
         self.n = 2 ** d
         self.B = B
+        assert q // t > 2 * self.B * (2 * self.n + 1)
+        # error bound
         self.delta = Ring(self.q, self.d, q // t)
         self.s = self._generate_secret()
         self.a = self._generate_a()
@@ -28,17 +30,20 @@ class Scheme:
         return Ring(self.q, self.d, [x])
     
     def _generate_secret(self):
+        # return Ring(self.q, self.d, [1] * self.n)
         return Ring(self.q, self.d, np.random.randint(0, 2, self.n))
     
     def _generate_a(self):
         return Ring(self.q, self.d, np.random.randint(0, self.q, self.n))
     
     def _generate_error(self):
+        # return Ring(self.q, self.d, [self.B] * self.n)
         return Ring(self.q, self.d, np.random.randint(0, self.B+1, self.n))
     
     def encrypt(self, m):
         self.m = Ring(self.q, self.d, m)
         u = Ring(self.q, self.d, np.random.randint(0, 2, self.n))
+        # u = Ring(self.q, self.d, [1]*self.n)
         self.ct0 = self.pk0 * u + self._generate_error() + self.delta * self.m
         self.ct1 = self.pk1 * u + self._generate_error()
         return self.ct0, self.ct1
