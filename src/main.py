@@ -14,11 +14,11 @@ def test_benchmark():
     plain = scheme.decrypt(ct0, ct1)
 
 def correctness_test():
-    x = 81960
+    # x = 819600
     while True:
-        scheme = Scheme(q=x, t=10 ,d=10, B=2)
-        test_plain = np.random.randint(0,10,1024)
-        test_plain = [9] * 1024
+        scheme = Scheme(q=1874, t=7 ,d=4, B=2)
+        test_plain = np.random.randint(0,7,16)
+        # test_plain = [9] * 1024
         ct0, ct1 = scheme.encrypt(test_plain)
         plain = scheme.decrypt(ct0, ct1)
         if not (plain == test_plain).all():
@@ -29,12 +29,14 @@ def correctness_test():
 
 if __name__ == "__main__":
 
-    # scheme = Scheme(q=300000, t=10 ,d=10, B=0)
-    # ct0, ct1 = scheme.encrypt([1] * 1024)
-    # plain = scheme.decrypt(ct0, ct1)
+    scheme = Scheme(q=1874, t=7 ,d=4, B=2)
+    message = np.random.randint(0,7,16)
+    print(message)
+    ct0, ct1 = scheme.encrypt(message)
+    plain = scheme.decrypt(ct0, ct1)
     # print(scheme.s * scheme.pk1 + scheme.pk0)
-    # print(plain)
+    print(plain)
     
-    correctness_test()
+    # correctness_test()
     
     
